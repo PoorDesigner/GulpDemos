@@ -1,6 +1,8 @@
 ﻿/// <binding AfterBuild='SassToCssCompiler' />
 var gulp = require('gulp');
-var sass = require('gulp-sass');
+//var sass = require('gulp-sass');
+var jshint = require('gulp-jshint');
+
 
 gulp.task('SassToCssCompiler', function () {
     gulp.src('Sass/**/*.scss')
@@ -9,4 +11,13 @@ gulp.task('SassToCssCompiler', function () {
 });
 gulp.task('default', function () {
     //gulp.watch('sass/**/*.scss', ['SassToCssCompiler']);
+});
+
+
+gulp.task('lint', function () {
+    return gulp.src('Scripts/*.js')
+      .pipe(jshint())
+      .pipe(jshint.reporter('gulp-jshint-file-reporter', {
+          filename: "Scripts/" + '/jshint-output.html'
+      }));
 });
